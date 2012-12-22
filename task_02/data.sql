@@ -7,7 +7,7 @@ CREATE TABLE Property (
     Living_room INT default 0,
     Diningroom INT default 0,
     Size Decimal(6,2) default 0.0
-) ENGINE=MyISAM;
+) ENGINE=InnoDB;
 
 CREATE TABLE HDB (
     ID BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -18,8 +18,8 @@ CREATE TABLE HDB (
 ) ENGINE=InnoDB;
 
 CREATE TABLE Condo (
-    ID BIGINT AUTO_INCREMENT,
-    PID INT NOT NULL,
+    ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+    PID BIGINT NOT NULL,
     SwimmingPool TINYINT default 0,
     INDEX idx_PID (PID), 
     FOREIGN KEY (PID) REFERENCES Property(ID)
