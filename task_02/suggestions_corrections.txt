@@ -1,0 +1,12 @@
+*********************
+***** test.html *****
+*********************
+
+* Invalid xmlns attribute for html element.
+* No title element (title element is required in all HTML documents). 
+* Wrong commenting in javascript code.
+* Elements outside of the body element.
+* Empty script tags.
+* font element is deprecated in HTML 4.01, so that have to style the h1 tag by CSS.
+* center element is deprecated in HTML 4.01, so that have to use CSS for this purpose.
+
