@@ -8,6 +8,10 @@
  * - "Buzz" if a multiple of 5
  * - The integer itself otherwise.
  * E.g. for f[12..16], the output is "Fizz 13 14 FizzBuzz 16".
+ * 
+ * -------------------------------------------------------------------------------
+ * NOTE: OOP is not used here since this is just a try to implement the algorithm.
+ * -------------------------------------------------------------------------------
  */
 
 $inputArr = array(12, 13, 14, 15, 16);
