@@ -44,7 +44,7 @@ class propertyData extends baseObj {
     }
 
     public function getType ($ID) { $Type = $this->get( $ID, 'Type'); return $Type; }
-    public function getTitle ($ID) { $Title = $this->get( $ID, 'Title') ; return $Type;}
+    public function getTitle ($ID) { $Title = $this->get( $ID, 'Title') ; return $Title;}
     public function getAddress ($ID) { $Address = $this->get( $ID, 'Address') ; return $Address;}
     public function getBedroom ($ID) { $Bedroom = $this->get( $ID, 'Bedroom') ; return $Bedroom;}
     public function getLivingroom ($ID) { $livingroom = $this->get( $ID, 'Living_room') ; return $livingroom;}
@@ -54,8 +54,8 @@ class propertyData extends baseObj {
 class hdbData extends propertyData {
     //private $table = 'HDB';
     
-	public function __construct($table='HDB') {
-    	parent::__construct($table);
+	public function __construct() {
+    	parent::__construct('HDB');
     }
     
     public function getHDBBlock ($ID) {
@@ -67,8 +67,8 @@ class hdbData extends propertyData {
 class condoData extends propertyData {
     //private $table = 'ConDO';
     
-	public function __construct($table='Condo') {
-    	parent::__construct($table);
+	public function __construct() {
+    	parent::__construct('Condo');
     }
     
     public function gotSwimmingPool ($ID)

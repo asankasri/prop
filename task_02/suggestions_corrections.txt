@@ -1,6 +1,11 @@
-*********************
-***** test.html *****
-*********************
+---------------------------------------------------------------------------
+NOTE: Please refer the 'SUUGGESTIONS' section after review the CORRECTIONS.
+---------------------------------------------------------------------------
+
+
+*************************************
+***** CORRECTIONS FOR test.html *****
+*************************************
 
 * Cannot have a xmlns attribute for html element.
 <HTML xmlns:fb="http://www.facebook.com/2008/fbml">
@@ -21,15 +26,15 @@
 * center element is deprecated in HTML 4.01, so that have to use CSS for this purpose.
 <CENTER><DIV CLASS="InfoDiv"></DIV></CENTER>
 
-* Changed /getinfo/ to getinfo.php/
+* Changed /getinfo/ to getinfo.php/. This may not need if there is an URL rule for convert getinfo.php to getinfo.
 "getinfo.php/1", {}, 
 
 ***************************************************************************************
 
 
-***********************
-***** getinfo.php *****
-***********************
+***************************************
+***** CORRECTIONS FOR getinfo.php *****
+***************************************
 
 * Extra closing bracket in line 4
 $ArrayURL = split('/', $_SERVER[REQUEST_URI]));
@@ -51,11 +56,11 @@ return json_encode( $data->getAll($id) );
 ***************************************************************************************
 
 
-********************
-***** data.php *****
-********************
+************************************
+***** CORRECTIONS FOR data.php *****
+************************************
 
-* In condoData and hdbData do not use private $table properties. Use constructors with the $table argument. And pass the table names to the constructor of their parent class propertyData.
+* In condoData and hdbData do not use private $table properties. Use constructors and pass the table names to the constructor of their parent class propertyData.
 
 * Create a constructor in propertyData class with the $table argument and call to parent class baseObj constructor.
 
@@ -64,9 +69,9 @@ return json_encode( $data->getAll($id) );
 ***************************************************************************************
 
 
-********************
-***** data.sql *****
-********************
+************************************
+***** CORRECTIONS FOR data.sql *****
+************************************
 
 * Invalid collation 'MyISAM' for Property table to use the primary key as the foreign key of other tables.
   Have to change it to InnoDB which supports for foreign keys.
@@ -77,3 +82,27 @@ ID BIGINT AUTO_INCREMENT,
 
 * Type of the foreign key is different in Condo table. It is defined as INT but it is BIGINT in Property table. Have to change it to BIGINT.
 PID INT NOT NULL,
+
+***************************************************************************************
+
+
+************************
+***** SUUGGESTIONS *****
+************************
+
+* Need to refactor the classes in data.php
+In the current code when we call to getAll() by hdbData object, we will get only the HDB table records.
+But in there, we should have related Property data also (Becuase there is a relation between HDB and Property)
+Also we should able to query the Property table fields by hdbData object. But currently it is not possible and there will be and error when we call getAddress() by hdbData object.
+So that we should implement a ORM based class structure.
+
+* Better to follow the naming convention standards.
+Ex: $ArrayURL should use with lower case letter
+    $status_header should not use '_', better use uppser case letter for word seperation ($statusHeader)
+    Class names should be begin with upper case letters (PropertyData)
+
+* Use propertyType & propertyId variables in the AJAX call of test.html. Then retrieve the GET parameter and get the table data accordingly in getinfo.php
+$.get(
+    "getinfo.php/1", {propertyType: "HDB", propertyId: 111},
+    function(data) { $('.InfoDiv').html(data); }
+);     
