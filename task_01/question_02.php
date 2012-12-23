@@ -10,7 +10,12 @@
  * -------------------------------------------------------------------------------
  */
 
+$fizz = 'Fizz';
+$buzz = 'Buzz';
+$bazz = 'Bazz';
+
 $inputArr = array(4, 5, 6, 7, 8, 9, 10, 11);
+//$inputArr = array(3, 6, 9, 12, 15, 18, 21, 24, 27, 30);
 echo getGeneratedStr($inputArr);
 
 /**
@@ -22,19 +27,16 @@ echo getGeneratedStr($inputArr);
  */
 function getGeneratedStr($inputArr) {
 	
-	$outputStr = '';
+	$outputArr = array();
 	foreach($inputArr as $key=>$val) {
 		
-		if ($key > 1 && checkPreviousFizzBuzz($inputArr [$key-1], $inputArr [$key-2] ))
-			$outputStr .= "Bazz"; // if the previous two values are either Fizz or Buzz, assign Bazz
+		if ($key > 1 && checkPreviousFizzBuzz($outputArr[$key-1], $outputArr[$key-2] ))
+			$outputArr[$key] = $GLOBALS['bazz']; // if the previous two values are either Fizz or Buzz, assign Bazz
 		else
-			$outputStr .= getFizzBuzz($val); // get the generated value (Fizz, Buzz or the original value)
-		
-		$outputStr.= ' ';
+			$outputArr[$key] = getFizzBuzz($val); // get the generated value (Fizz, Buzz or the original value)
 	}
 	
-	$outputStr = trim($outputStr); // trim the string
-	return  $outputStr;
+	return implode(' ', $outputArr);
 }
 
 /**
@@ -49,7 +51,7 @@ function getFizzBuzz($value) {
 	
 	$modThree = $value % 3;
 	$modFive = $value % 5;
-	return (($modThree == 0 || $modFive == 0) ? (($modThree == 0 ? 'Fizz' : '') . ($modFive == 0 ? 'Buzz' : '')) : $value);
+	return (($modThree == 0 || $modFive == 0) ? (($modThree == 0 ? $GLOBALS['fizz'] : '') . ($modFive == 0 ? $GLOBALS['buzz'] : '')) : $value);
 }
 
 /**
@@ -63,6 +65,6 @@ function getFizzBuzz($value) {
  */
 function checkPreviousFizzBuzz($val1, $val2) {
 	
-	return (($val1 % 3 == 0 || $val1 % 5 == 0) && ($val2 % 3 == 0 || $val2 % 5 == 0));
+	return (in_array($val1, array($GLOBALS['fizz'], $GLOBALS['buzz'], $GLOBALS['fizz'].$GLOBALS['buzz'])) && in_array($val2, array($GLOBALS['fizz'], $GLOBALS['buzz'], $GLOBALS['fizz'].$GLOBALS['buzz'])));
 }
 ?>
