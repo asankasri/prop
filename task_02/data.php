@@ -4,9 +4,11 @@ class baseObj {
     public $mysql = null;
     private $table = null;
 
-    public function __construct ()
+    public function __construct ($table=null)
     {
-        $this->mysql = new mysqli("localhost", "user", "password", "database");
+    	$this->table = $table;
+    	
+        $this->mysql = new mysqli("localhost", "root", "root", "guru");
         if ($this->mysql->connect_errno) {
             echo "Failed to connect to MySQL: (" . $this->mysql->connect_errno . ") " . $this->mysql->connect_error;
         }
@@ -14,13 +16,13 @@ class baseObj {
 
     public function get ($id, $field)
     {
-        return $this->mysql->query("SELECT $field FROM $table WHERE ID = $id");
+        return $this->mysql->query("SELECT $field FROM $this->table WHERE ID = $id");
     }
 
     public function getAll ($id)
     {
-        $res = $this->mysql->query("SELECT * FROM $table WHERE ID = $id");
-        return $res->fetch_assoc();
+    	$res = $this->mysql->query("SELECT * FROM $this->table WHERE ID = $id");
+		return $res->fetch_assoc();
     }
 }
 
@@ -35,7 +37,11 @@ class propertyData extends baseObj {
     protected $hdbblock = null;
     private $swimmingPool = null;
 
-    private $table = 'Property';
+    //private $table = 'Property';
+    
+    public function __construct($table='Property') {
+    	parent::__construct($table);
+    }
 
     public function getType ($ID) { $Type = $this->get( $ID, 'Type'); return $Type; }
     public function getTitle ($ID) { $Title = $this->get( $ID, 'Title') ; return $Type;}
@@ -46,12 +52,25 @@ class propertyData extends baseObj {
 }
 
 class hdbData extends propertyData {
-    private $table = 'HDB';
-    public function getHDBBlock ($ID) { $this->hdbblock = $this->get($ID, 'HDBBlock'); return $this->hdbblock; }
+    //private $table = 'HDB';
+    
+	public function __construct($table='HDB') {
+    	parent::__construct($table);
+    }
+    
+    public function getHDBBlock ($ID) {
+    	$this->hdbblock = $this->get($ID, 'HDBBlock'); 
+    	return $this->hdbblock; 
+    }
 }
 
 class condoData extends propertyData {
-    private $table = 'ConDO';
+    //private $table = 'ConDO';
+    
+	public function __construct($table='Condo') {
+    	parent::__construct($table);
+    }
+    
     public function gotSwimmingPool ($ID)
     {
         return $this->get($ID, 'SwimmingPool');

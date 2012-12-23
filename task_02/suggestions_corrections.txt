@@ -2,13 +2,29 @@
 ***** test.html *****
 *********************
 
-* Invalid xmlns attribute for html element.
-* No title element (title element is required in all HTML documents). 
+* Cannot have a xmlns attribute for html element.
+<HTML xmlns:fb="http://www.facebook.com/2008/fbml">
+
+* No title element (title element is required in all HTML documents).
+
 * Wrong commenting in javascript code.
+<!--// Get the data using ajax //-->
+
 * Elements outside of the body element.
+
 * Empty script tags.
+<SCRIPT></SCRIPT>
+
 * font element is deprecated in HTML 4.01, so that have to style the h1 tag by CSS.
+<H1><FONT FACE="verdana" COLOR="green">Welcome</FONT></H1>
+
 * center element is deprecated in HTML 4.01, so that have to use CSS for this purpose.
+<CENTER><DIV CLASS="InfoDiv"></DIV></CENTER>
+
+* Changed /getinfo/ to getinfo.php/
+"getinfo.php/1", {}, 
+
+***************************************************************************************
 
 
 ***********************
@@ -23,6 +39,29 @@ if (is_object($data) = true) $status = '200 OK';
 
 * dataObj class is not existing (used condoData)
 $data = new dataObj(); 
+
+* Better to get the $id from the last element of $ArrayURL always. (Then id value also msut pass at the end of the url always)
+
+* Incorrect assignment for $status_header. Have to use double quotes or use string concatanation if single quotes are used.
+$status_header = 'HTTP/1.1 $status';
+
+* Return json_encode value is not effective. Have to echo or print that.
+return json_encode( $data->getAll($id) );
+
+***************************************************************************************
+
+
+********************
+***** data.php *****
+********************
+
+* In condoData and hdbData do not use private $table properties. Use constructors with the $table argument. And pass the table names to the constructor of their parent class propertyData.
+
+* Create a constructor in propertyData class with the $table argument and call to parent class baseObj constructor.
+
+* In the baseObj constructor, assign the $table property value from the given constructor argument. And use $this->table within the class where we need to use $table property. 
+
+***************************************************************************************
 
 
 ********************
