@@ -15,6 +15,7 @@
  */
 
 $inputArr = array(12, 13, 14, 15, 16);
+//$inputArr = array(3, 6, 9, 12, 15, 18, 21, 24, 27, 30);
 echo getGeneratedStr($inputArr);
 
 /**
@@ -26,13 +27,12 @@ echo getGeneratedStr($inputArr);
  */
 function getGeneratedStr($inputArr) {
 	
-	$outputStr = '';
+	$outputArr = array();
 	foreach($inputArr as $val) {
-		$outputStr.= getFizzBuzz($val) . ' '; // get the generated value (Fizz, Buzz or the original value)
+		$outputArr[] = getFizzBuzz($val); // get the generated value (Fizz, Buzz or the original value)
 	}
 	
-	$outputStr = trim($outputStr); // trim the string
-	return  $outputStr;
+	return implode(' ', $outputArr);
 }
 
 /**
